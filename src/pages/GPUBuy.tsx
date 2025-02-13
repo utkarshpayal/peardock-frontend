@@ -17,9 +17,19 @@ const AddGpuForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage("");    
+    setMessage("");
 
-    if (!host || !gpu || !vcpu || !ram || !network || !storage || !price || !time || !key) {
+    if (
+      !host ||
+      !gpu ||
+      !vcpu ||
+      !ram ||
+      !network ||
+      !storage ||
+      !price ||
+      !time ||
+      !key
+    ) {
       setMessage("All fields are required");
       setLoading(false);
       return;
@@ -27,12 +37,20 @@ const AddGpuForm = () => {
 
     try {
       const response = await fetch("http://localhost:8282/add-gpus", {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          host, gpu, vcpu, ram, network, storage, price, time, key
+          host,
+          gpu,
+          vcpu,
+          ram,
+          network,
+          storage,
+          price,
+          time,
+          key,
         }),
       });
 
@@ -56,14 +74,56 @@ const AddGpuForm = () => {
   };
 
   const inputFields = [
-    { label: "Host Machine", value: host, setter: setHost, placeholder: "Enter host machine name" },
-    { label: "GPU Model", value: gpu, setter: setGpu, placeholder: "Enter GPU model" },
-    { label: "vCPU Cores", value: vcpu, setter: setVcpu, placeholder: "Enter vCPU count" },
-    { label: "RAM (GB)", value: ram, setter: setRam, placeholder: "Enter RAM size" },
-    { label: "Network (Mbps)", value: network, setter: setNetwork, placeholder: "Enter network speed" },
-    { label: "Storage (GB)", value: storage, setter: setStorage, placeholder: "Enter storage size" },
-    { label: "Price (INR)", value: price, setter: setPrice, type: "number", placeholder: "Enter price" },
-    { label: "Duration (Hours)", value: time, setter: setTime, type: "number", placeholder: "Enter duration" },
+    {
+      label: "Host Machine",
+      value: host,
+      setter: setHost,
+      placeholder: "Enter host machine name",
+    },
+    {
+      label: "GPU Model",
+      value: gpu,
+      setter: setGpu,
+      placeholder: "Enter GPU model",
+    },
+    {
+      label: "vCPU Cores",
+      value: vcpu,
+      setter: setVcpu,
+      placeholder: "Enter vCPU count",
+    },
+    {
+      label: "RAM (GB)",
+      value: ram,
+      setter: setRam,
+      placeholder: "Enter RAM size",
+    },
+    {
+      label: "Network (Mbps)",
+      value: network,
+      setter: setNetwork,
+      placeholder: "Enter network speed",
+    },
+    {
+      label: "Storage (GB)",
+      value: storage,
+      setter: setStorage,
+      placeholder: "Enter storage size",
+    },
+    {
+      label: "Price (INR)",
+      value: price,
+      setter: setPrice,
+      type: "number",
+      placeholder: "Enter price",
+    },
+    {
+      label: "Duration (Hours)",
+      value: time,
+      setter: setTime,
+      type: "number",
+      placeholder: "Enter duration",
+    },
   ];
 
   return (
@@ -72,7 +132,9 @@ const AddGpuForm = () => {
         <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
           <div className="mb-8">
             <h2 className="text-3xl font-bold text-gray-900">Add New GPU</h2>
-            <p className="mt-2 text-gray-600">Fill in the details to add a new GPU to the system</p>
+            <p className="mt-2 text-gray-600">
+              Fill in the details to add a new GPU to the system
+            </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -109,11 +171,13 @@ const AddGpuForm = () => {
             </div>
 
             {message && (
-              <div className={`rounded-lg p-4 ${
-                message.includes("success") 
-                  ? "bg-green-50 text-green-700 border border-green-200" 
-                  : "bg-red-50 text-red-700 border border-red-200"
-              }`}>
+              <div
+                className={`rounded-lg p-4 ${
+                  message.includes("success")
+                    ? "bg-green-50 text-green-700 border border-green-200"
+                    : "bg-red-50 text-red-700 border border-red-200"
+                }`}
+              >
                 <div className="flex items-center">
                   {message.includes("success") ? (
                     <Check className="h-5 w-5 mr-2" />
@@ -136,7 +200,7 @@ const AddGpuForm = () => {
                   Processing...
                 </>
               ) : (
-                'Add GPU'
+                "Add GPU"
               )}
             </button>
           </form>
