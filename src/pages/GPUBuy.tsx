@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { AlertCircle, Check, Loader2 } from "lucide-react";
+import { useParams } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const AddGpuForm = () => {
   const [host, setHost] = useState("");
@@ -10,15 +12,21 @@ const AddGpuForm = () => {
   const [storage, setStorage] = useState("");
   const [price, setPrice] = useState("");
   const [time, setTime] = useState("");
-  const [key, setKey] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const { key } = useParams(); // Extract key from URL
+
+  const decoded = key ? jwtDecode(key) : null;
+
+  const result = decoded;
+  
+  console.log(result);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
-
+    console.log(key);
     if (
       !host ||
       !gpu ||
@@ -26,17 +34,14 @@ const AddGpuForm = () => {
       !ram ||
       !network ||
       !storage ||
-      !price ||
-      !time ||
-      !key
-    ) {
+      !price    ) {
       setMessage("All fields are required");
       setLoading(false);
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:8282/add-gpus", {
+      const response = await fetch(`http://localhost:8282/add-gpus/${key}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +69,6 @@ const AddGpuForm = () => {
         setStorage("");
         setPrice("");
         setTime("");
-        setKey("");
       }
     } catch (error) {
       setMessage("Error adding GPU: " + error.message);
@@ -119,7 +123,7 @@ const AddGpuForm = () => {
     },
     {
       label: "Duration (Hours)",
-      value: time,
+      value: decoded?.timeInSeconds,
       setter: setTime,
       type: "number",
       placeholder: "Enter duration",
@@ -162,9 +166,10 @@ const AddGpuForm = () => {
               </label>
               <input
                 type="text"
-                value={key}
-                onChange={(e) => setKey(e.target.value)}
-                placeholder="Enter 64-bit hexadecimal key"
+                value={decoded?.key}
+                disabled
+                // onChange={(e) => setKey(e.target.value)}
+                // placeholder="Enter 64-bit hexadecimal key"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                 required
               />

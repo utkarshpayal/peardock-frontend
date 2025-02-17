@@ -106,6 +106,7 @@ function EnhancedTable({ rows }: { rows: any[] }) {
 
       if (data.success) {
         window.location.href = data.checkoutUrl;
+        
       } else if (data.error == "Product already exists.") {
         setAlreadyBaught(true);
       } else {

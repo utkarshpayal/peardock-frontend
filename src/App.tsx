@@ -33,7 +33,7 @@ function App() {
           <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login login={login} />} />
           <Route path="buy-gpu" element={<Buy />} />
-          <Route path="add-gpus" element={<AddGpuForm />} />
+          <Route path="add-gpus/:key" element={<AddGpuForm />} />
           <Route path="blog" element={<Blog />} />
           <Route path="docs" element={<Docs />} />
           <Route path="contact" element={<Contact />} />
