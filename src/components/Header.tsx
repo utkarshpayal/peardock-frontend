@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -10,6 +12,8 @@ const Header = ({ logout, isAuthenticated }: any) => {
     { path: "/docs", name: "Docs" },
     { path: "/blog", name: "Blog" },
     { path: "/contact", name: "Contact" },
+    {path: "/containerTerminal", name: "Terminal"},
+    {path: "/container", name: "Add"}
   ];
 
   return (

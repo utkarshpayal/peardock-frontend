@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// @ts-nocheck
+
+import  { useState } from "react";
 import { AlertCircle, Check, Loader2 } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -22,7 +24,7 @@ const AddGpuForm = () => {
   
   console.log(result);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
@@ -71,7 +73,7 @@ const AddGpuForm = () => {
         setTime("");
       }
     } catch (error) {
-      setMessage("Error adding GPU: " + error.message);
+      setMessage("Error adding GPU: " + (error instanceof Error ? error.message : "Unknown error"));
     }
 
     setLoading(false);

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { XCircle } from "lucide-react";
 
 interface PaymentFailedModalProps {

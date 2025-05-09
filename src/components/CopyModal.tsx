@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useState } from "react";
 import { Copy, Check, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";

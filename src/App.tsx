@@ -11,7 +11,8 @@ import Blog from "./pages/Blog";
 import Docs from "./pages/Docs";
 import Contact from "./pages/Contact";
 import AddGpuForm from "./pages/GPUBuy";
-
+import ContainerManagement from "./components/ContainerManagement.tsx";
+import ContainerAccess from "./components/ContainerOperations.tsx";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     return localStorage.getItem("authentication") === "true";
@@ -32,14 +33,20 @@ function App() {
         >
           <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login login={login} />} />
-          <Route path="buy-gpu" element={<Buy />} />
+      
+          
+
+
+          <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+            <Route index element={<Home />} />
+            <Route path="buy-gpu" element={<Buy />} />
           <Route path="add-gpus/:key" element={<AddGpuForm />} />
           <Route path="blog" element={<Blog />} />
           <Route path="docs" element={<Docs />} />
           <Route path="contact" element={<Contact />} />
-
-          <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
-            <Route index element={<Home />} />
+          {/* <Route path="terminal" element={<CustomTerminal />} /> */}
+          <Route path="container" element={<ContainerManagement />} />
+          <Route path="containerTerminal" element={<ContainerAccess />} />
           </Route>
         </Route>
       </Routes>
