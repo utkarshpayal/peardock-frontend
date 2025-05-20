@@ -27,17 +27,20 @@ function ContainerAccess() {
   }, []);
 
   const connectToContainer = async () => {
+    console.log("after connect")
     if (!containerId.trim()) {
       setStatusMessage("Please enter a valid container ID.");
       return;
     }
 
     try {
+      console.log("inside try")
       // Verify that the container exists and is running
       const response = await fetch(
         `http://localhost:3000/status?id=${containerId}`
       );
       const data = await response.json();
+      console.log("data:",data)
       
       if (data.error) throw new Error(data.error);
       if (data.status !== "running") throw new Error("Container is not running");
@@ -160,7 +163,9 @@ function ContainerAccess() {
     fitAddon.fit();
 
     // Setup WebSocket with container ID
+    console.log("container id:",containerId)
     const socket = new WebSocket(`ws://localhost:3000/terminal/${containerId}`);
+    
     socket.onopen = () => term.write(`Connected to container!\r\n\n`);
     socket.onmessage = (event) => term.write(event.data);
     socket.onerror = () => term.write("Error connecting to container terminal.\r\n");
